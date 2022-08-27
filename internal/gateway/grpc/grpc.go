@@ -68,7 +68,7 @@ func initDao() (dao.Interface, error) {
 		golog.New(os.Stdout, "", golog.LstdFlags),
 		logger.Config{
 			SlowThreshold:             time.Second,
-			LogLevel:                  logger.Info,
+			LogLevel:                  logger.LogLevel(viper.GetInt("data.database.log-level")),
 			IgnoreRecordNotFoundError: true,
 			Colorful:                  false,
 		},
@@ -79,9 +79,9 @@ func initDao() (dao.Interface, error) {
 		Username:              viper.GetString("data.database.user"),
 		Password:              viper.GetString("data.database.password"),
 		Database:              viper.GetString("data.database.database"),
-		MaxIdleConnections:    100,
-		MaxOpenConnections:    100,
-		MaxConnectionLifeTime: 10 * time.Second,
+		MaxIdleConnections:    viper.GetInt("data.database.max-idle-connections"),
+		MaxOpenConnections:    viper.GetInt("data.database.max-open-connections"),
+		MaxConnectionLifeTime: time.Duration(viper.GetInt("data.database.max-connection-lifetime")) * time.Second,
 		Logger:                newLogger,
 	}
 	databaseDao, err := mysql.GetDao(&options)
