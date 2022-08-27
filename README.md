@@ -120,6 +120,22 @@ Standard HTTP and GRPC Go Project Layout with Protobuf and GORM.
                 status.proto
 ```
 
+## Upgrade Dependence
+
+To upgrade all dependencies at once for a given module, just run the following from the root directory of your module
+
+This upgrades to the latest or minor patch release
+
+```text
+go get -u ./...
+```
+
+To also upgrade test dependencies
+
+```text
+go get -t -u ./...
+```
+
 ## Install Dependence
 
 ```text
