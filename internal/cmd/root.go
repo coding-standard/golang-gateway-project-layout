@@ -10,8 +10,8 @@ var (
 
 func GetRootCommand() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "golang-project-layout",
-		Short: "Standard HTTP and GRPC Go Project Layout with Protobuf and GORM		",
+		Use:   "golang-project-layout",
+		Short: "Standard HTTP and GRPC Go Project Layout with Protobuf and GORM",
 	}
 
 	cmd.AddCommand(GetServerCommand())

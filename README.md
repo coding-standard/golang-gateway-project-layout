@@ -1,4 +1,124 @@
 # golang-project-layout
+Standard HTTP and GRPC Go Project Layout with Protobuf and GORM.
+
+## Features Included
+- HTTP API
+- GRPC API
+- GORM based MySQL
+- JWT Generation
+- Full Sample Code for Beginners
+
+## If you like this project layout, STAR IT NOW!
+
+## Project Layout
+```text
+│  .env # if you want to use JWT, store an env like: JWT_SECRET=golang in this file, it will not be submit to git.
+│  .gitignore
+│  go.mod
+│  go.sum
+│  LICENSE
+│  Makefile
+│  README.md # this file
+│
+├─api # protobuf and api definition
+│  ├─general
+│  │  └─v1
+│  │          demo.proto
+│  │
+│  └─golang-project-layout
+│      └─v1
+│              golang-project-layout.proto
+│              README.md
+│
+├─cmd # project start from here
+│  └─golang-project-layout
+│          main.go
+│
+├─config # config files
+│      config.yaml
+│
+├─dist
+│  └─sdk # the typescript SDK will be generated here
+│      │  .gitkeep
+│
+├─docs
+│  │  .gitkeep
+│  └─swagger-ui # swagger static files
+│
+├─internal # internal packages here
+│  ├─cmd
+│  │      root.go
+│  │      server.go
+│  │
+│  ├─dao # database operation
+│  │  │  demodb.go
+│  │  │  main.go
+│  │  │
+│  │  └─mysql
+│  │          demodb.go
+│  │          main.go
+│  │
+│  ├─gateway
+│  │  │  gateway.go
+│  │  │  handlers.go
+│  │  │
+│  │  └─grpc
+│  │          grpc.go
+│  │
+│  ├─model # data models
+│  │      base.go
+│  │      demodb.go
+│  │
+│  └─service # service logics
+│          demo.go
+│          demodb.go
+│          main.go
+│
+├─pkg # public packages
+│  ├─build
+│  │      build.go
+│  │
+│  ├─db
+│  │      mysql.go
+│  │
+│  ├─health
+│  │      checks.go
+│  │      doc.go
+│  │      handler.go
+│  │      handler_test.go
+│  │      timeout.go
+│  │      timeout_test.go
+│  │      types.go
+│  │
+│  ├─log
+│  │      log.go
+│  │
+│  └─utils
+│          jwt.go
+│          md5.go
+│
+├─schema # database scripts
+│      000.database.sql
+│      001.demodb.sql
+│
+└─third_party # third party resource folder
+    └─google
+        ├─api
+        │      annotations.proto
+        │      http.proto
+        │
+        ├─protobuf
+        │      any.proto
+        │      descriptor.proto
+        │      duration.proto
+        │      empty.proto
+        │      timestamp.proto
+        │
+        └─rpc
+                code.proto
+                error_details.proto
+                status.proto
+```
 
 ## Install Dependence
 
@@ -175,30 +295,30 @@ make api_gen
     }
     ```
 
-  - Implement dao interface in demodb.go in internal/dao/mysql with New func
+- Implement dao interface in demodb.go in internal/dao/mysql with New func
 
-      ```go
-      type DemoDbDao struct {
-          Db *gorm.DB
-      }
+    ```go
+    type DemoDbDao struct {
+        Db *gorm.DB
+    }
 
-      // Implementation interface code
-      func (d DemoDbDao) DemoDb(ctx context.Context, demoDb string) (*model.DemoDb, error) {
-          // This is a demo code ignore it if you have real database logic
-          dDb := &model.DemoDb{
-              DemoDb: demoDb,
-          }
-          // Add GORM logic here
-          // if err := d.Db.Where("demo_db LIKE ?", "%"+demoDb+"%").Find(&dDb).Error; err != nil {
-		  //     return nil, err
-		  // }
-          return dDb, nil
-      }
+    // Implementation interface code
+    func (d DemoDbDao) DemoDb(ctx context.Context, demoDb string) (*model.DemoDb, error) {
+        // This is a demo code ignore it if you have real database logic
+        dDb := &model.DemoDb{
+            DemoDb: demoDb,
+        }
+        // Add GORM logic here
+        // if err := d.Db.Where("demo_db LIKE ?", "%"+demoDb+"%").Find(&dDb).Error; err != nil {
+        //     return nil, err
+        // }
+        return dDb, nil
+    }
     
-      func NewDemoDbDao(d *gorm.DB) *DemoDbDao {
-          return &DemoDbDao{d}
-      }
-      ```
+    func NewDemoDbDao(d *gorm.DB) *DemoDbDao {
+        return &DemoDbDao{d}
+    }
+    ```
 
 - Add gorm implement func in internal/dao/mysql/main.go file
 
