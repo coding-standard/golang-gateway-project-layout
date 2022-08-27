@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 	generalv1 "github.com/coding-standard/golang-project-layout/api/general/v1"
-	projectv1 "github.com/coding-standard/golang-project-layout/api/project/v1"
+	projectv1 "github.com/coding-standard/golang-project-layout/api/golang-project-layout/v1"
 	"github.com/coding-standard/golang-project-layout/internal/dao"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -31,6 +31,7 @@ func (s *DemoDbService) DemoDb(ctx context.Context, req *generalv1.DemoDbRequest
 	}
 	return &generalv1.DemoDbResponse{
 		DemoDb: &generalv1.DemoDb{
+			Id:     demoDb.Id,
 			DemoDb: demoDb.DemoDb,
 		},
 	}, nil

@@ -1,5 +1,11 @@
 # golang-project-layout
 
+## Install Dependence
+
+```text
+make api_dep_install
+```
+
 ## Generate API
 
 ```text
@@ -12,7 +18,7 @@ make api_gen
 
     ```proto
     service Demo {
-        rpc Demo(project.api.general.v1.DemoRequest) returns (project.api.general.v1.DemoResponse) {
+        rpc Demo(golang-project-layout.api.general.v1.DemoRequest) returns (golang-project-layout.api.general.v1.DemoResponse) {
             option (google.api.http) = {
                 get: "/api/v1/demo"
             };
@@ -169,30 +175,30 @@ make api_gen
     }
     ```
 
-- Implement dao interface in demodb.go in internal/dao/mysql with New func
+  - Implement dao interface in demodb.go in internal/dao/mysql with New func
 
-    ```go
-    type DemoDbDao struct {
-        Db *gorm.DB
-    }
+      ```go
+      type DemoDbDao struct {
+          Db *gorm.DB
+      }
 
-    // Implementation interface code
-    func (d DemoDbDao) DemoDb(ctx context.Context, demoDb string) (*model.DemoDb, error) {
-        // This is a demo code ignore it if you have real database logic
-        dDb := &model.DemoDb{
-            DemoDb: demoDb,
-        }
-        // Add GORM logic here
-        // if err := d.Db.Where("name = ?", name).Find(&dDb).Error; err != nil {
-        //     return nil, err
-        // }
-        return dDb, nil
-    }
+      // Implementation interface code
+      func (d DemoDbDao) DemoDb(ctx context.Context, demoDb string) (*model.DemoDb, error) {
+          // This is a demo code ignore it if you have real database logic
+          dDb := &model.DemoDb{
+              DemoDb: demoDb,
+          }
+          // Add GORM logic here
+          // if err := d.Db.Where("demo_db LIKE ?", "%"+demoDb+"%").Find(&dDb).Error; err != nil {
+		  //     return nil, err
+		  // }
+          return dDb, nil
+      }
     
-    func NewDemoDbDao(d *gorm.DB) *DemoDbDao {
-        return &DemoDbDao{d}
-    }
-    ```
+      func NewDemoDbDao(d *gorm.DB) *DemoDbDao {
+          return &DemoDbDao{d}
+      }
+      ```
 
 - Add gorm implement func in internal/dao/mysql/main.go file
 

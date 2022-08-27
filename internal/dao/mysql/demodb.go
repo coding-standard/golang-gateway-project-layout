@@ -14,10 +14,10 @@ func (d DemoDbDao) DemoDb(ctx context.Context, demoDb string) (*model.DemoDb, er
 	dDb := &model.DemoDb{
 		DemoDb: demoDb,
 	}
-	// Add GORM logic here
-	// if err := d.Db.Where("name = ?", name).Find(&dDb).Error; err != nil {
-	//     return nil, err
-	// }
+	// Change GORM logic here
+	if err := d.Db.Where("demo_db LIKE ?", "%"+demoDb+"%").Find(&dDb).Error; err != nil {
+		return nil, err
+	}
 	return dDb, nil
 }
 

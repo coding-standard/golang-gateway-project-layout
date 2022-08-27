@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 	generalv1 "github.com/coding-standard/golang-project-layout/api/general/v1"
-	projectv1 "github.com/coding-standard/golang-project-layout/api/project/v1"
+	projectv1 "github.com/coding-standard/golang-project-layout/api/golang-project-layout/v1"
 )
 
 type DemoService struct {

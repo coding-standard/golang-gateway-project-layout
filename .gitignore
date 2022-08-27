@@ -29,6 +29,7 @@ charts/*.tgz
 
 # protobuf gen files
 dist/sdk/apis
+dist/golang-project-layout
 go.work
 *.ts
 

@@ -3,7 +3,7 @@ syntax = "proto3";
 import "google/api/annotations.proto";
 import "api/general/v1/demo.proto";
 
-option go_package = "github.com/coding-standard/golang-project-layout/api/project/v1";
+option go_package = "github.com/coding-standard/golang-project-layout/api/golang-project-layout/v1";
 
 service Demo {
   rpc Demo(project.api.general.v1.DemoRequest) returns (project.api.general.v1.DemoResponse) {

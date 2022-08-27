@@ -1,26 +1,9 @@
-.PHONY: build clean tool lint help
-all: build
-
+.PHONY: build lint
 build:
-	# $Env:GOOS = "linux" "darwin"
-	go build -o golang-project-layout ./cmd
-
-tool:
-	go vet ./...; true
-	gofmt -w .
+	go build -o dist/golang-project-layout ./cmd/golang-project-layout/
 
 lint:
 	golint ./...
-
-clean:
-	rm -rf go-gin-example
-	go clean -i .
-
-help:
-	@echo "make: compile packages and dependencies"
-	@echo "make tool: run specified go tool"
-	@echo "make lint: golint ./..."
-	@echo "make clean: remove object files and cached files"
 
 .PHONY: api_gen api_dep_install api_clean
 api_dep_install:
@@ -42,9 +25,9 @@ api_gen:
 		--grpc-gateway_out=paths=source_relative:. \
 		--openapiv2_out=logtostderr=true:. \
 		--grpc-gateway-ts_out=paths=source_relative:./dist/sdk/ \
-		api/project/v1/project.proto api/general/v1/demo.proto \
+		api/golang-project-layout/v1/golang-project-layout.proto api/general/v1/demo.proto \
 
 api_clean:
-	rm -f apis/*/*/*.pb.go apis/*/*/*.pb.gw.go apis/*/*/*.swagger.json apis/*/*/*.pb.validate.go
+	rm -f api/*/*/*.pb.go api/*/*/*.pb.gw.go api/*/*/*.swagger.json api/*/*/*.pb.validate.go
 	rm -rf dist/sdk/*
-	rm -rf third_party/swagger-ui/*.swagger.json
+	rm -rf docs/swagger-ui/*.swagger.json

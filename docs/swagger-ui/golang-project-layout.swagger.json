@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "api/project/v1/project.proto",
+    "title": "api/golang-project-layout/v1/golang-project-layout.proto",
     "version": "version not set"
   },
   "tags": [

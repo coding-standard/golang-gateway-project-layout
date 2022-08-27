@@ -1,1 +1,0 @@
-Rename the project folder and project.proto to your project name

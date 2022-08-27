@@ -17,7 +17,8 @@ message DemoResponse {
 }
 
 message DemoDb {
-  string demo_db = 1;
+  int64 id = 1;
+  string demo_db = 2;
 }
 
 message DemoDbRequest {

@@ -3,18 +3,14 @@ module github.com/coding-standard/golang-project-layout
 go 1.18
 
 require (
-	github.com/astaxie/beego v1.9.3-0.20171218111859-f16688817aa4
 	github.com/boombuler/barcode v1.0.1-0.20180315051053-3c06908149f7
 	github.com/dgrijalva/jwt-go v3.1.0+incompatible
 	github.com/gin-gonic/gin v1.4.0
 	github.com/go-ini/ini v1.32.1-0.20180214101753-32e4be5f41bb
-	github.com/go-sql-driver/mysql v1.6.0
 	github.com/golang/glog v1.0.0
 	github.com/gomodule/redigo v2.0.1-0.20180401191855-9352ab68be13+incompatible
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.11.3
 	github.com/mitchellh/go-homedir v1.1.0
-	github.com/pkg/errors v0.9.1
-	github.com/rakyll/statik v0.1.7
 	github.com/spf13/cobra v1.5.0
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.12.0
@@ -26,13 +22,13 @@ require (
 	google.golang.org/protobuf v1.28.1
 	gorm.io/driver/mysql v1.3.5
 	gorm.io/gorm v1.23.8
-	sigs.k8s.io/yaml v1.3.0
 )
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
+	github.com/go-sql-driver/mysql v1.6.0 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect

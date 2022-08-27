@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	v1 "github.com/coding-standard/golang-project-layout/api/project/v1"
+	v1 "github.com/coding-standard/golang-project-layout/api/golang-project-layout/v1"
 
 	"github.com/coding-standard/golang-project-layout/internal/dao"
 	"github.com/coding-standard/golang-project-layout/internal/dao/mysql"
