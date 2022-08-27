@@ -13,3 +13,28 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+# Dependency directories (remove the comment below to include it)
+# vendor/
+.idea/
+.vscode/
+dist/*.tgz
+dist/*.out
+dist/*.xml
+dist/*.html
+dist/*.awk
+dist/sdk/*.json
+charts/*.tgz
+*.tgz
+
+# protobuf gen files
+dist/sdk/apis
+go.work
+*.ts
+
+# documentation
+_book/
+api/*/*/*.go
+api/*/*/*.json
+api/*/*.go
+api/*/*.json
