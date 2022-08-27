@@ -1,6 +1,9 @@
-.PHONY: build lint
+.PHONY: build run lint
 build:
 	go build -o dist/golang-project-layout ./cmd/golang-project-layout/
+
+run:
+	dist/golang-project-layout server
 
 lint:
 	golint ./...

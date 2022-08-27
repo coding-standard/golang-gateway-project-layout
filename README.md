@@ -1,7 +1,9 @@
 # golang-project-layout
+
 Standard HTTP and GRPC Go Project Layout with Protobuf and GORM.
 
 ## Features Included
+
 - HTTP API
 - GRPC API
 - GORM based MySQL
@@ -10,7 +12,20 @@ Standard HTTP and GRPC Go Project Layout with Protobuf and GORM.
 
 ## If you like this project layout, STAR IT NOW!
 
+## How to run this project?
+
+1. You need a MySQL Server, go to schema folder to apply all scripts to your MySQL. (or change the code delete all DAO related code.)
+
+2. Prepare Protobuf API generation by run ```make api_dep_install```
+
+3. Generate APIs by run ```make api_gen```
+
+4. Run this project in GoLand or build it by ```make build``` then run ```make run``` to start the project. (for different OS and ARCH you may need change GOOS and GOARCH envs, maybe this link can help: <https://www.digitalocean.com/community/tutorials/how-to-build-go-executables-for-multiple-platforms-on-ubuntu-16-04>)
+
+5. Visit <http://localhost:8081/api/v1/project/swagger>, you can test the APIs.
+
 ## Project Layout
+
 ```text
 │  .env # if you want to use JWT, store an env like: JWT_SECRET=golang in this file, it will not be submit to git.
 │  .gitignore
