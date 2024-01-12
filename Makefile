@@ -8,8 +8,8 @@ run:
 lint:
 	golint ./...
 
-.PHONY: api_gen api_dep_install api_clean
-api_dep_install:
+.PHONY: api_gen api_install_dep api_clean
+api_install_dep:
 	go env -w GOPROXY=https://goproxy.cn,direct
 	go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 	go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
@@ -24,11 +24,15 @@ api_dep_install:
 api_gen:
 	protoc -I . -I third_party \
 		--go_out=paths=source_relative:. \
-		--go-grpc_out=paths=source_relative:. \
-		--grpc-gateway_out=paths=source_relative:. \
-		--openapiv2_out=logtostderr=true:. \
-		--grpc-gateway-ts_out=paths=source_relative:./dist/sdk/ \
-		api/golang-project-layout/v1/golang-project-layout.proto api/general/v1/demo.proto \
+        		--go-grpc_out=paths=source_relative:. \
+        		--grpc-gateway_out=paths=source_relative:. \
+        		--grpc-gateway-ts_out=paths=source_relative:./dist/sdk/ \
+        		--openapiv2_out=logtostderr=true:. \
+        		--openapiv2_opt allow_merge=true \
+        		--openapiv2_opt output_format=json \
+        		--openapiv2_opt merge_file_name="golang-gateway-project-layout." \
+		api/golang-project-layout/v1/golang-project-layout.proto api/general/v1/demo.proto
+	cp -R *.swagger.json docs/swagger-ui/golang-gateway-project-layout.swagger.json
 
 api_clean:
 	rm -f api/*/*/*.pb.go api/*/*/*.pb.gw.go api/*/*/*.swagger.json api/*/*/*.pb.validate.go

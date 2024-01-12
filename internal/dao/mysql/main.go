@@ -5,6 +5,7 @@ import (
 	"sync"
 
 	"github.com/coding-standard/golang-project-layout/internal/dao"
+	"github.com/coding-standard/golang-project-layout/internal/model"
 	"github.com/coding-standard/golang-project-layout/pkg/db"
 	"gorm.io/gorm"
 )
@@ -42,6 +43,13 @@ func GetDao(opts *db.Options) (dao.Interface, error) {
 		dbIns, err = db.NewGORM(options)
 		daoInterface = &Dao{dbIns}
 	})
+
+	initErr := dbIns.Set("gorm:table_options", "ENGINE=InnoDB").AutoMigrate(
+		&model.DemoDb{},
+	)
+	if initErr != nil {
+		return nil, fmt.Errorf("failed to init mysql database: %w", err)
+	}
 
 	if daoInterface == nil || err != nil {
 		return nil, fmt.Errorf("failed to get mysql database dao, : %+v, error: %w", daoInterface, err)

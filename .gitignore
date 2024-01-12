@@ -39,3 +39,5 @@ api/*/*/*.go
 api/*/*/*.json
 api/*/*.go
 api/*/*.json
+
+golang-gateway-project-layout.swagger.json
