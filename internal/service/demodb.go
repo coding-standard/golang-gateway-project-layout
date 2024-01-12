@@ -2,11 +2,15 @@ package service
 
 import (
 	"context"
+	"strconv"
+
 	generalv1 "github.com/coding-standard/golang-project-layout/api/general/v1"
 	projectv1 "github.com/coding-standard/golang-project-layout/api/golang-project-layout/v1"
 	"github.com/coding-standard/golang-project-layout/internal/dao"
+	"github.com/coding-standard/golang-project-layout/pkg/utils"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 type DemoDbService struct {
@@ -20,7 +24,22 @@ func NewDemoDbService(dao dao.Interface) *DemoDbService {
 	return &DemoDbService{dao: dao.DemoDbDao()}
 }
 
+func (s *DemoDbService) Token(ctx context.Context, req *emptypb.Empty) (*generalv1.TokenResponse, error) {
+	accessToken, _, errGenTokens := utils.GenerateTokens(strconv.FormatInt(1, 10))
+	if errGenTokens != nil {
+		return nil, errGenTokens
+	}
+	return &generalv1.TokenResponse{
+		Token: accessToken,
+	}, nil
+}
+
 func (s *DemoDbService) DemoDb(ctx context.Context, req *generalv1.DemoDbRequest) (*generalv1.DemoDbResponse, error) {
+	_, err := utils.AuthJWT(ctx)
+	if err != nil {
+		return nil, status.Error(codes.Unauthenticated, err.Error())
+	}
+
 	demoDb, err := s.dao.DemoDb(ctx, req.DemoDb)
 	if err != nil {
 		result := status.Convert(err)

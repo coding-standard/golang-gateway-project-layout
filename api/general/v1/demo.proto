@@ -4,6 +4,10 @@ package project.api.general.v1;
 
 option go_package = "github.com/coding-standard/golang-project-layout/api/general/v1";
 
+message TokenResponse {
+  string token = 1;
+}
+
 message Demo {
   string demo = 1;
 }

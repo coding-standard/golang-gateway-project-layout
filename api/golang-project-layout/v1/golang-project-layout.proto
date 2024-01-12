@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
 import "api/general/v1/demo.proto";
 
 option go_package = "github.com/coding-standard/golang-project-layout/api/golang-project-layout/v1";
@@ -14,6 +15,12 @@ service Demo {
 }
 
 service DemoDb {
+  rpc Token(google.protobuf.Empty) returns (project.api.general.v1.TokenResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/token"
+    };
+  }
+
   rpc DemoDb(project.api.general.v1.DemoDbRequest) returns (project.api.general.v1.DemoDbResponse) {
     option (google.api.http) = {
       get: "/api/v1/demodb"

@@ -24,13 +24,13 @@ api_install_dep:
 api_gen:
 	protoc -I . -I third_party \
 		--go_out=paths=source_relative:. \
-        		--go-grpc_out=paths=source_relative:. \
-        		--grpc-gateway_out=paths=source_relative:. \
-        		--grpc-gateway-ts_out=paths=source_relative:./dist/sdk/ \
-        		--openapiv2_out=logtostderr=true:. \
-        		--openapiv2_opt allow_merge=true \
-        		--openapiv2_opt output_format=json \
-        		--openapiv2_opt merge_file_name="golang-gateway-project-layout." \
+		--go-grpc_out=paths=source_relative:. \
+		--grpc-gateway_out=paths=source_relative:. \
+		--grpc-gateway-ts_out=paths=source_relative:./dist/sdk/ \
+		--openapiv2_out=logtostderr=true:. \
+		--openapiv2_opt allow_merge=true \
+		--openapiv2_opt output_format=json \
+		--openapiv2_opt merge_file_name="golang-gateway-project-layout." \
 		api/golang-project-layout/v1/golang-project-layout.proto api/general/v1/demo.proto
 	cp -R *.swagger.json docs/swagger-ui/golang-gateway-project-layout.swagger.json
 
