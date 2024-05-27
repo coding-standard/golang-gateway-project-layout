@@ -41,3 +41,4 @@ api/*/*.go
 api/*/*.json
 
 golang-gateway-project-layout.swagger.json
+!docs/swagger-ui/golang-gateway-project-layout.swagger.json
