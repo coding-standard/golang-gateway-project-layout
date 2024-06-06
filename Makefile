@@ -32,7 +32,8 @@ api_gen:
 		--openapiv2_opt output_format=json \
 		--openapiv2_opt merge_file_name="golang-gateway-project-layout." \
 		api/golang-project-layout/v1/golang-project-layout.proto api/general/v1/demo.proto
-	cp -R *.swagger.json docs/swagger-ui/golang-gateway-project-layout.swagger.json
+	cp -R *.swagger.json swagger-ui/golang-gateway-project-layout.swagger.json
+	rm *.swagger.json
 
 api_clean:
 	rm -f api/*/*/*.pb.go api/*/*/*.pb.gw.go api/*/*/*.swagger.json api/*/*/*.pb.validate.go
