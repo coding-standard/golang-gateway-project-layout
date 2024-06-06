@@ -6,8 +6,8 @@ import (
 	"net/http"
 
 	v1 "github.com/coding-standard/golang-project-layout/api/golang-project-layout/v1"
-	swaggerui "github.com/coding-standard/golang-project-layout/docs/swagger-ui"
 	"github.com/coding-standard/golang-project-layout/pkg/log"
+	swaggerui "github.com/coding-standard/golang-project-layout/swagger-ui"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	_ "google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc"
