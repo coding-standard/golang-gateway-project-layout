@@ -2,7 +2,6 @@ package service
 
 import (
 	"context"
-	"strconv"
 
 	generalv1 "github.com/coding-standard/golang-project-layout/api/general/v1"
 	projectv1 "github.com/coding-standard/golang-project-layout/api/golang-project-layout/v1"
@@ -25,7 +24,7 @@ func NewDemoDbService(dao dao.Interface) *DemoDbService {
 }
 
 func (s *DemoDbService) Token(ctx context.Context, req *emptypb.Empty) (*generalv1.TokenResponse, error) {
-	accessToken, _, errGenTokens := utils.GenerateTokens(strconv.FormatInt(1, 10))
+	accessToken, _, errGenTokens := utils.GenerateTokens(1)
 	if errGenTokens != nil {
 		return nil, errGenTokens
 	}
@@ -35,11 +34,10 @@ func (s *DemoDbService) Token(ctx context.Context, req *emptypb.Empty) (*general
 }
 
 func (s *DemoDbService) DemoDb(ctx context.Context, req *generalv1.DemoDbRequest) (*generalv1.DemoDbResponse, error) {
-	_, err := utils.AuthJWT(ctx)
+	claims, err := utils.GetTokenDetails(ctx)
 	if err != nil {
 		return nil, status.Error(codes.Unauthenticated, err.Error())
 	}
-
 	demoDb, err := s.dao.DemoDb(ctx, req.DemoDb)
 	if err != nil {
 		result := status.Convert(err)
@@ -50,7 +48,7 @@ func (s *DemoDbService) DemoDb(ctx context.Context, req *generalv1.DemoDbRequest
 	}
 	return &generalv1.DemoDbResponse{
 		DemoDb: &generalv1.DemoDb{
-			Id:     demoDb.Id,
+			Id:     int64(claims.ID),
 			DemoDb: demoDb.DemoDb,
 		},
 	}, nil

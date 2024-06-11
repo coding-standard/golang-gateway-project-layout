@@ -1,23 +1,25 @@
 package utils
 
 import (
+	"context"
+	"errors"
 	"os"
 	"time"
 
-	"github.com/dgrijalva/jwt-go"
+	jwt "github.com/golang-jwt/jwt/v5"
 )
 
-func GenerateTokens(userId string) (string, string, error) {
+func GenerateTokens(userId float64) (string, string, error) {
 	nowTime := time.Now()
 	accessTokenExpireTime := nowTime.Add(time.Hour * 720)
-	accessTokenClaims := jwt.StandardClaims{
-		ExpiresAt: accessTokenExpireTime.Unix(),
-		Id:        userId,
+	accessTokenClaims := jwt.MapClaims{
+		"iss": userId,
+		"exp": accessTokenExpireTime.Unix(),
 	}
 	refreshTokenExpireTime := nowTime.Add(time.Hour * 720 * 2)
-	refreshTokenClaims := jwt.StandardClaims{
-		ExpiresAt: refreshTokenExpireTime.Unix(),
-		Id:        userId,
+	refreshTokenClaims := jwt.MapClaims{
+		"iss": userId,
+		"exp": refreshTokenExpireTime.Unix(),
 	}
 	accessToken, errAccessToken := jwt.NewWithClaims(jwt.SigningMethodHS256, accessTokenClaims).SignedString([]byte(os.Getenv("JWT_SECRET")))
 	if errAccessToken != nil {
@@ -31,14 +33,36 @@ func GenerateTokens(userId string) (string, string, error) {
 }
 
 // ParseToken parsing token
-func ParseToken(token string) (*jwt.StandardClaims, error) {
-	tokenClaims, err := jwt.ParseWithClaims(token, &jwt.StandardClaims{}, func(token *jwt.Token) (interface{}, error) {
+func ParseToken(token string) (jwt.MapClaims, error) {
+	tokenClaims, err := jwt.ParseWithClaims(token, jwt.MapClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(os.Getenv("JWT_SECRET")), nil
 	})
+	if err != nil {
+		return nil, err
+	}
+
 	if tokenClaims != nil {
-		if claims, ok := tokenClaims.Claims.(*jwt.StandardClaims); ok && tokenClaims.Valid {
+		claims, ok := tokenClaims.Claims.(jwt.MapClaims)
+		if ok && tokenClaims.Valid {
 			return claims, nil
 		}
 	}
 	return nil, err
+}
+
+type UserClaims struct {
+	ID             float64   `json:"id"`
+	ExpirationTime time.Time `json:"exp"`
+}
+
+func GetTokenDetails(ctx context.Context) (UserClaims, error) {
+	claims := ctx.Value("token").(jwt.MapClaims)
+	if claims == nil {
+		return UserClaims{}, errors.New("token claims not found")
+	}
+	user := UserClaims{
+		ID:             claims["iss"].(float64),
+		ExpirationTime: time.Unix(int64(claims["exp"].(float64)), 0),
+	}
+	return user, nil
 }

@@ -8,6 +8,9 @@ import (
 	"time"
 
 	v1 "github.com/coding-standard/golang-project-layout/api/golang-project-layout/v1"
+	"github.com/coding-standard/golang-project-layout/internal/mid"
+	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/auth"
+	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/selector"
 
 	"github.com/coding-standard/golang-project-layout/internal/dao"
 	"github.com/coding-standard/golang-project-layout/internal/dao/mysql"
@@ -35,7 +38,15 @@ func Run(ctx context.Context, network, address string) error {
 		}()
 		<-ctx.Done()
 	}()
-	s := grpc.NewServer()
+
+	s := grpc.NewServer(
+		grpc.ChainUnaryInterceptor(
+			selector.UnaryServerInterceptor(auth.UnaryServerInterceptor(mid.Auth), selector.MatchFunc(mid.AllButHealthZ)),
+		),
+		grpc.ChainStreamInterceptor(
+			selector.StreamServerInterceptor(auth.StreamServerInterceptor(mid.Auth), selector.MatchFunc(mid.AllButHealthZ)),
+		),
+	)
 
 	var daoInterface dao.Interface
 	if daoInterface, err = initDao(); err != nil {
