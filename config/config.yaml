@@ -9,7 +9,6 @@ server:
       auth:
         enabled: true
         ignoreMethods:
-          - GetVersion
           - Token
 
 data:

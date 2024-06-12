@@ -22,7 +22,11 @@ Standard HTTP and GRPC Go Project Layout with Protobuf and GORM.
 
 4. Run this project in GoLand or build it by ```make build``` then run ```make run``` to start the project. (for different OS and ARCH you may need change GOOS and GOARCH envs, maybe this link can help: <https://www.digitalocean.com/community/tutorials/how-to-build-go-executables-for-multiple-platforms-on-ubuntu-16-04>)
 
-5. Visit <http://localhost:8081/api/v1/project/swagger>, you can test the APIs.
+5. Visit <http://localhost:8081/api/v1/swagger>, you can test the APIs.
+
+6. Notice that only the Token API does not need a token, other APIs need a token to access.
+
+7. Set token in swagger by click the Authorize button and input the token in the input box, start with bearer, like: bearer your_token_here.
 
 ## Project Layout
 
@@ -163,7 +167,7 @@ make api_dep_install
 make api_gen
 ```
 
-## Add Service without Datbase Operate
+## Add Service without Database Operate
 
 - Proto file definition
 

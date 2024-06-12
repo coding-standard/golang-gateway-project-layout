@@ -14,7 +14,7 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 )
 
-const staticPrefix = "/api/project/v1/swagger/"
+const staticPrefix = "/api/v1/swagger/"
 
 type Endpoint struct {
 	Network, Addr string
